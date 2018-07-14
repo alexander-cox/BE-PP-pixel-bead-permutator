@@ -1,0 +1,24 @@
+{
+  "name": "be-pp-pixel-bead-permutator",
+  "version": "1.0.0",
+  "description": "back end of Norcoders Project phase names Pixed Bead Permutator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander-Cox",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jimp": "^0.2.28",
+    "pg-promise": "^8.4.5"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.2",
+    "supertest": "^3.1.0"
+  }
+}

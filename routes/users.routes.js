@@ -9,6 +9,10 @@ router.get('/:username', (req, res) => {
     return controller.getUserByUsername(req, res);
 });
 
+router.get('/:username/favourites', (req, res) => {
+    return controller.getFavouritesByUsername(req, res);
+});
+
 router.post('/', (req, res) => {
     return controller.postNewUser(req, res);
 });

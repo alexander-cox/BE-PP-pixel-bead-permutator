@@ -4,7 +4,9 @@
   "description": "back end of Norcoders Project phase names Pixed Bead Permutator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha spec/*",
+    "seed": "psql -f data/dev.seed.sql",
+    "dev": "nodemon listen.js"
   },
   "author": "Alexander-Cox",
   "license": "ISC",

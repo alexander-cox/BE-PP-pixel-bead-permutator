@@ -30,7 +30,7 @@ CREATE TABLE inventory (
     id SERIAL PRIMARY KEY,
     users_id INT NOT NULL,
     bead_id INT NOT NULL,
-    quantity INT DEFAULT 0,
+    quantity INT DEFAULT 0 CHECK (quantity >= 0),
     FOREIGN KEY (users_id) REFERENCES users(id),
     FOREIGN KEY (bead_id) REFERENCES beads(id)
 );

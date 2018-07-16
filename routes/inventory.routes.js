@@ -19,6 +19,8 @@ router.put('/:inv_id', (req, res) => {
     return res.status(200).send(`${strMove} inventory number ${inv_id} by ${amount}`);
 });
 
-router.post()
+router.post('/', (req, res) => {
+    return res.status(201).send({ Inventory_Updated_With: req.body});
+})
 
 module.exports = router;

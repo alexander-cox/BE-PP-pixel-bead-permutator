@@ -1,21 +1,34 @@
+const Model = require('../model/inventory.model');
+
 module.exports = {
-    getAllInventoryItems(req, res) {
-        return res.status(200).send('Get All inventory list!!');
+    getAllInventoryItems(req, res, next) {
+        Model.getAllInventoryItems()
+            .then(items => res.status(200).send(items))
+            .catch(next);
     },
-    getInventoryItemsByUserID(req, res) {
-        return res.status(200).send(`Get inventory of ${req.params.user_id}`);
+    getInventoryItemsByUserID(req, res, next) {
+        const { user_id } = req.params;
+        Model.getInventoryBeadsByUserID(user_id)
+            .then(beads => res.status(200).send(beads))
+            .catch(next);
     },
-    putIncOrDecBeadsByInvID(req, res) {
+    putIncOrDecBeadsByInvID(req, res, next) {
         //use increment=true/false and amount=(int) on query string 
         const { increment, amount } = req.query;
         const { inv_id } = req.params;
-
-        //TEMPORARY to test the routed method works...
-        let strMove; 
-        increment === 'true' ? strMove='increment' : strMove='decrement';
-        return res.status(200).send(`${strMove} inventory number ${inv_id} by ${amount}`);
+        if (increment === 'true') {
+            return Model.putIncrementInventoryQuantity(inv_id, amount)
+                .then(item => res.status(201).send(item))
+                .catch(next)
+        } else {
+            return Model.putDecrementInventoryQuantity(inv_id, amount)
+                .then(item => res.status(201).send(item))
+                .catch(next)
+        }
     },
-    postInventoryItemByUserID(req, res) {
-        return res.status(201).send({ Inventory_Updated_With: req.body});
+    postInventoryItemByUserID(req, res, next) {
+        Model.postNewIntentoryItem(req.body)
+            .then(item => res.status(201).send(item))
+            .catch(next);
     }
 }

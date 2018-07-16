@@ -1,16 +1,22 @@
-//const Model = require('../model/users.model');
+const Model = require('../model/users.model');
 
 module.exports = {
-    getAllUsers(req, res) {
-        return res.status(200).send('get all users!')
+    getAllUsers(req, res, next) {
+        Model.getAllUsers()
+        .then(users => res.status(200).send(users))
+        .catch(next);
     },
-    getUserByUsername(req, res) {
+    getUserByUsername(req, res, next) {
         const { username } = req.params;
-        return res.status(200).send(`return user with username ${username}`);
+        Model.getUserByUsername(username)
+        .then(user => res.status(200).send(user))
+        .catch(next); 
     },
-    getFavouritesByUsername(req, res) {
-        const { username } = req.params;
-        return res.status(200).send(`return favourites for user with username ${username}`);
+    getFavouritesByUserID(req, res, next) {
+        const { user_id } = req.params;
+        Model.getFavouritesByUserID(user_id)
+        .then(favourites => res.status(200).send(favourites))
+        .catch(next);
     },
     postNewUser(req, res) {
         return res.status(201).send({ New_User: req.body });

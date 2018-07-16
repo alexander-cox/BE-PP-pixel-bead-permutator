@@ -18,7 +18,9 @@ module.exports = {
         .then(favourites => res.status(200).send(favourites))
         .catch(next);
     },
-    postNewUser(req, res) {
-        return res.status(201).send({ New_User: req.body });
+    postNewUser(req, res, next) {
+        Model.postNewUser(req.body)
+        .then(user => res.status(201).send(user))
+        .catch(next);
     }
 }

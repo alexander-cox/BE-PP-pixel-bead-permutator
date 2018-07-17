@@ -41,7 +41,7 @@ CREATE TABLE solutions (
     users_id INT NOT NULL,
     image_URL VARCHAR(2000) NOT NULL,
     votes INT NOT NULL DEFAULT 0,
-    public BOOLEAN NOT NULL DEFAULT true,
+    is_public BOOLEAN NOT NULL DEFAULT true,
     tags VARCHAR(500),
     brand VARCHAR(20),
     width_px INT NOT NULL,

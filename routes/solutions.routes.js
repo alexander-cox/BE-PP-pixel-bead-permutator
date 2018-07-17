@@ -7,7 +7,7 @@ router.get('/:solution_id', controller.getSolutionByID);
 router.get('/user/:user_id', controller.getSolutionsByUserID);
 
 //POSTs
-router.post('/user/:user_id', controller.postSolutionByUserID);
+router.post('/', controller.postSolution);
 
 //PUTs
 router.put('/:solution_id/votes', controller.putVoteUpOrDown);

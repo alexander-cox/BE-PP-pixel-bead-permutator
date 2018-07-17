@@ -1,40 +1,67 @@
+const Model = require('../model/solutions.model');
+
 module.exports = {
-    getAllSolutions(req, res) {
+    getAllSolutions(req, res, next) {
         const { title, tags } = req.query;
-        if(title && tags) {
-            return res.status(200).send(`get all the solutions with title: ${title}, & hastags: ${tags}`)
+        if (title && tags) {
+            return Model.getAllSolutionsByTitleAndTags(title, tags.split(' '))
+                .then(solutions => res.status(200).send(solutions))
+                .catch(next);
         } else if (title) {
-            return res.status(200).send(`get all the solutions with title: ${title}`)
+            return Model.getAllSolutionsByTitle(title)
+                .then(solutions => res.status(200).send(solutions))
+                .catch(next);
         } else if (tags) {
-            return res.status(200).send(`get all the solutions with hastags: ${tags}`)
+            return Model.getAllSolutionsByTags(tags.split(' '))
+                .then(solutions => res.status(200).send(solutions))
+                .catch(next)
         } else {
-            return res.status(200).send('You get all the solutions!!');
+            return Model.getAllSolutions()
+                .then(solutions => res.status(200).send(solutions))
+                .catch(next);
         }
     },
-    getSolutionByID(req, res) {
+    getSolutionByID(req, res, next) {
         const { solution_id } = req.params;
-        return res.status(200).send(`get solution with solution id: ${solution_id}`);
+        return Model.getSolutionByID(solution_id)
+            .then(solution => res.status(200).send(solution))
+            .catch(next);
     },
-    getSolutionsByUserID(req, res) {
+    getSolutionsByUserID(req, res, next) {
         const { user_id } = req.params;
-        return res.status(200).send(`get all solutions for user ${user_id}`);
+        return Model.getSolutionsByUserID(user_id)
+            .then(solutions => res.status(200).send(solutions))
+            .catch(next);
     },
-    postSolutionByUserID(req, res) {
-        const { user_id } = req.params;
-        return res.status(201).send({ New_Solution: {...req.body, user_id}});
+    postSolution(req, res, next) {
+        return Model.postSolution(req.body)
+            .then(solution => res.status(200).send(solution))
+            .catch(next);
     },
-    putVoteUpOrDown(req, res) {
+    putVoteUpOrDown(req, res, next) {
         const { decrement } = req.query;
         const { solution_id } = req.params;
-        let strIncOrDec;
-        decrement === 'true' ? strIncOrDec = 'decrement' : strIncOrDec = 'increment';
-        return res.status(201).send(`${strIncOrDec} votes for solution with id ${solution_id} by 1`);
+        if (decrement === 'true') {
+            return Model.putDecrementVotesByOne(solution_id)
+                .then(solution => res.status(201).send(solution))
+                .catch(next);
+        } else {
+            return Model.putIncrementVotesByOne(solution_id)
+                .then(solution => res.status(201).send(solution))
+                .catch(next);
+        }
     },
-    putFavouritedUpOrDown(req, res) {
+    putFavouritedUpOrDown(req, res, next) {
         const { decrement } = req.query;
         const { solution_id } = req.params;
-        let strIncOrDec;
-        decrement === 'true' ? strIncOrDec = 'decrement' : strIncOrDec = 'increment';
-        return res.status(201).send(`${strIncOrDec} favourite count for solution with id ${solution_id} by 1`);
+        if (decrement === 'true') {
+            return Model.putDecrementFavouritedByOne(solution_id)
+                .then(solution => res.status(201).send(solution))
+                .catch(next);
+        } else {
+            return Model.putIncrementFavouritedByOne(solution_id)
+                .then(solution => res.status(201).send(solution))
+                .catch(next);
+        }
     }
 }

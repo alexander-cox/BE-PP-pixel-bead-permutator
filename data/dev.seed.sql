@@ -39,7 +39,7 @@ CREATE TABLE solutions (
     id SERIAL PRIMARY KEY,
     title VARCHAR(100),
     users_id INT NOT NULL,
-    image_URL VARCHAR(2000) NOT NULL,
+    image_url VARCHAR(2000) NOT NULL,
     votes INT NOT NULL DEFAULT 0,
     is_public BOOLEAN NOT NULL DEFAULT true,
     tags VARCHAR(500),

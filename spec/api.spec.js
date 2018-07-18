@@ -104,7 +104,35 @@ describe('API', () => {
     });
     describe('ROUTE /api/beads', () => {
         describe('GET /api/beads', () => {
-            
+            it('returns expected array of beads', () => {
+                return request.get('/api/beads')
+                .expect(200)
+                .then(({body: beads}) => {
+                    expect(beads.length).to.equal(36);
+                    expect(beads[0].id).to.equal(1);
+                    expect(beads[0].colour_name).to.equal('White');
+                    expect(beads[0].r).to.equal(236);
+                    expect(beads[0].g).to.equal(237);
+                    expect(beads[0].b).to.equal(237);
+                    expect(beads[0].hex).to.equal('ECEDED');
+                    expect(beads[0].style).to.equal('Standard');
+                    expect(beads[0].transparent).to.equal(false);
+                    expect(beads[0].size).to.equal('Medium');
+                    expect(beads[0].brand).to.equal('Hama');
+                    expect(beads[0].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                    expect(beads[35].id).to.equal(36);
+                    expect(beads[35].colour_name).to.equal('Brown');
+                    expect(beads[35].r).to.equal(190);
+                    expect(beads[35].g).to.equal(130);
+                    expect(beads[35].b).to.equal(100);
+                    expect(beads[35].hex).to.equal('BE8264');
+                    expect(beads[35].style).to.equal('Standard');
+                    expect(beads[35].transparent).to.equal(false);
+                    expect(beads[35].size).to.equal('Medium');
+                    expect(beads[35].brand).to.equal('Hama');
+                    expect(beads[35].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                });
+            });
         });
     });
 });

@@ -1,4 +1,5 @@
 const Model = require('../model/beads.model');
+const Utils = require('../utils/image-logic.utils');
 
 module.exports = {
     getAllAvailableBeads(req, res, next) {
@@ -6,9 +7,13 @@ module.exports = {
             .then(beads => res.status(200).send(beads))
             .catch(next)
     },
-    getTempSolutionByImageURL(req, res) {
-        const { url } = req.query;
-        return res.status(200).send({ solution_id: 1, url, belongs_to: 12 });
+    getTempSolutionByImageURL(req, res, next) {
+        const { height, width, url  } = req.query;
+        console.log(url);
+        return Model.getAllBeads()
+            .then(beads => Utils.imageToBeadArr(url, beads, width, height))
+            .then(tempSolution => res.status(200).send(tempSolution.length))
+            .catch(next);
     },
     getBeadsBySolutionID(req, res, next) {
         const { solution_id } = req.params;

@@ -292,4 +292,23 @@ describe('API', () => {
             })
         })
     });
+    describe('ROUTE /api/inventory', () => {
+        describe('GET /api/inventory/', () => {
+            it('gets all inventory objects as an array', () => {
+                return request.get('/api/inventory/')
+                .expect(200)
+                .then(({body: items}) => {
+                    expect(items.length).to.equal(53);
+                    expect(items).to.be.an('array');
+                    expect(items.every(item => item.quantity >= 0)).to.equal(true);
+                    expect(items.every(item => item.user_id !== null)).to.equal(true);
+                    expect(items.every(item => item.bead_id !== null)).to.equal(true);
+                    expect(items[51].id).to.equal(52);
+                    expect(items[51].users_id).to.equal(1);
+                    expect(items[51].bead_id).to.equal(32);
+                    expect(items[51].quantity).to.equal(47);
+                });
+            });
+        });
+    });
 });

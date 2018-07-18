@@ -4,7 +4,7 @@
   "description": "back end of Norcoders Project phase names Pixed Bead Permutator",
   "main": "index.js",
   "scripts": {
-    "test": "mocha spec/*",
+    "test": "psql -f data/test.seed.sql && mocha spec/*",
     "seed": "psql -f data/dev.seed.sql",
     "dev": "nodemon listen.js"
   },

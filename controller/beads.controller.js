@@ -9,10 +9,11 @@ module.exports = {
     },
     getTempSolutionByImageURL(req, res, next) {
         const { height, width, url  } = req.query;
-        console.log(url);
         return Model.getAllBeads()
             .then(beads => Utils.imageToBeadArr(url, beads, width, height))
-            .then(tempSolution => res.status(200).send(tempSolution.length))
+            .then(tempSolution => {
+                res.status(200).send(tempSolution)
+            })
             .catch(next);
     },
     getBeadsBySolutionID(req, res, next) {

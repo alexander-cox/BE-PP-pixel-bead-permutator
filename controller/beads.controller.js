@@ -24,11 +24,8 @@ module.exports = {
     },
     postBeadsBySolutionID(req, res, next) {
         const { solution_id } = req.params;
-        console.log(req.body);
-        return Model.postBeadsBySolutionID(req.body)
-            .then(beads => {
-                return res.status(201).send({ insert_count: beads.length , solution_id })
-            })
+        return Model.postBeadsBySolutionID(req.body, solution_id)
+            .then(ids => res.status(201).send({ insert_count: ids.length, solution_id }))
             .catch(next);
     }
 }

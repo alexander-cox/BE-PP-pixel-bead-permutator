@@ -134,7 +134,7 @@ describe('API', () => {
                 });
             });
         });
-        describe('GET api/beads/:solution_id', () => {
+        describe('GET /api/beads/:solution_id', () => {
             it('retrieves all beads for a specific solution', () => {
                 return request.get('/api/beads/1')
                     .expect(200)
@@ -168,7 +168,7 @@ describe('API', () => {
                     });
             });
         });
-        describe('POST api/beads/:solution_id', () => {
+        describe('POST /api/beads/:solution_id', () => {
             const testSolution = [ { x: 1,
     y: 1,
     bead_id: 1,
@@ -262,5 +262,34 @@ describe('API', () => {
                 });
             });
         });
+        describe('GET /api/beads/temp', () => {
+            const url = 'https://sm.ign.com/ign_in/news/p/pokemon-da/pokemon-day-2018-celebrations-include-snapchat-lenses-new-pi_6kqw.jpg';
+            const width = 2;
+            const height = 2;
+            it('returns an array of arrays to represent x,y coords on an image', () => {
+                return request.get(`/api/beads/temp?width=${width}&height=${height}&url=${url}`)
+                .expect(200)
+                .then(({body: pixels}) => {
+                    expect(pixels).to.be.an('array');
+                    expect(pixels.length).to.equal(2);
+                    expect(pixels[0].length).to.equal(2);
+                    expect(pixels[1].length).to.equal(2);
+                    expect(pixels[0][1].colour_name).to.equal('Beige');
+                    expect(pixels[0][1].r).to.equal(222);
+                    expect(pixels[0][1].g).to.equal(180);
+                    expect(pixels[0][1].b).to.equal(139);
+                    expect(pixels[0][1].x).to.equal(1);
+                    expect(pixels[0][1].y).to.equal(2);
+                    expect(pixels[0][1].bead_id).to.equal(19);
+                    expect(pixels[1][1].colour_name).to.equal('Beige');
+                    expect(pixels[1][1].r).to.equal(222);
+                    expect(pixels[1][1].g).to.equal(180);
+                    expect(pixels[1][1].b).to.equal(139);
+                    expect(pixels[1][1].x).to.equal(2);
+                    expect(pixels[1][1].y).to.equal(2);
+                    expect(pixels[1][1].bead_id).to.equal(19);
+                })
+            })
+        })
     });
 });

@@ -134,7 +134,7 @@ describe('API', () => {
                 });
             });
         });
-        describe('GET /beads/:solution_id', () => {
+        describe('GET api/beads/:solution_id', () => {
             it('retrieves all beads for a specific solution', () => {
                 return request.get('/api/beads/1')
                     .expect(200)
@@ -166,6 +166,100 @@ describe('API', () => {
                         expect(beads[1750].g).to.equal(152);
                         expect(beads[1750].b).to.equal(188);
                     });
+            });
+        });
+        describe('POST api/beads/:solution_id', () => {
+            const testSolution = [ { x: 1,
+    y: 1,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 2,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 3,
+    bead_id: 33,
+    colour_name: 'Light Grey',
+    r: 233,
+    g: 233,
+    b: 233 },
+  { x: 1,
+    y: 4,
+    bead_id: 33,
+    colour_name: 'Light Grey',
+    r: 233,
+    g: 233,
+    b: 233 },
+  { x: 1,
+    y: 5,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 6,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 7,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 8,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 9,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 10,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 11,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 },
+  { x: 1,
+    y: 12,
+    bead_id: 1,
+    colour_name: 'White',
+    r: 236,
+    g: 237,
+    b: 237 } ]
+            it('should return a 201 status and a report to confirm correct no insertions', () => {
+                return request.post('/api/beads/3').send(testSolution)
+                .expect(201)
+                .then(({body: report}) => {
+                    expect(report.insert_count).to.equal(12)
+                    expect(report.solution_id).to.equal('3')
+                });
             });
         });
     });

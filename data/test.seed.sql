@@ -15784,5 +15784,5 @@ VALUES
 INSERT INTO favourites 
         ( users_id, solution_id )
 VALUES
-        ( 2, 1 ), (1, 1), (2, 3), (1, 1);
+        ( 2, 1 ), (1, 1), (2, 3);
 

@@ -134,5 +134,39 @@ describe('API', () => {
                 });
             });
         });
+        describe('GET /beads/:solution_id', () => {
+            it('retrieves all beads for a specific solution', () => {
+                return request.get('/api/beads/1')
+                    .expect(200)
+                    .then(({body: beads}) => {
+                        expect(beads.length).to.equal(3600);
+                        expect(beads.every(b => b.solution_id === 1)).to.equal(true);
+                        expect(beads[0].id).to.equal(1);
+                        expect(beads[0].x).to.equal(1);
+                        expect(beads[0].y).to.equal(1);
+                        expect(beads[0].bead_id).to.equal(null);
+                        expect(beads[0].colour_name).to.equal(null);
+                        expect(beads[0].r).to.equal(null);
+                        expect(beads[0].g).to.equal(null);
+                        expect(beads[0].b).to.equal(null);
+                        expect(beads[3599].id).to.equal(3600);
+                        expect(beads[3599].x).to.equal(60);
+                        expect(beads[3599].y).to.equal(60);
+                        expect(beads[3599].bead_id).to.equal(null);
+                        expect(beads[3599].colour_name).to.equal(null);
+                        expect(beads[3599].r).to.equal(null);
+                        expect(beads[3599].g).to.equal(null);
+                        expect(beads[3599].b).to.equal(null);
+                        expect(beads[1750].id).to.equal(1751);
+                        expect(beads[1750].x).to.equal(30);
+                        expect(beads[1750].y).to.equal(11);
+                        expect(beads[1750].bead_id).to.equal(31);
+                        expect(beads[1750].colour_name).to.equal('Turqoise');
+                        expect(beads[1750].r).to.equal(73);
+                        expect(beads[1750].g).to.equal(152);
+                        expect(beads[1750].b).to.equal(188);
+                    });
+            });
+        });
     });
 });

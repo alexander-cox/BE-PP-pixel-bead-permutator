@@ -451,5 +451,36 @@ describe('API', () => {
                 })
             });
         });
+        describe('GET /api/solutions/user/:user_id', () => {
+            it('returns the solutions that belong to requested user', () => {
+                const myId = 1;
+                return request.get(`/api/solutions/user/${myId}`)
+                .expect(200)
+                .then(({body: solutions}) => {
+                    expect(solutions.every(s => s.users_id === myId)).to.equal(true);
+                    expect(Object.keys(solutions[2]).length).to.equal(12);
+                    expect(solutions[1].id).to.equal(2);
+                    expect(solutions[1].title).to.equal('Aubergine Emoji');
+                    expect(solutions[1].image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
+                    expect(solutions[1].votes).to.equal(1);
+                    expect(solutions[1].is_public).to.equal(true);
+                    expect(solutions[1].tags).to.equal('#aubergine#emoji#purple#vegetable');
+                    expect(solutions[1].brand).to.equal('Hama');
+                    expect(solutions[1].width_px).to.equal(60);
+                    expect(solutions[1].height_px).to.equal(60);
+                    expect(solutions[1].favourited).to.equal(0);
+                    expect(solutions[1].created_at).to.not.equal(null);
+                });
+            });
+            it('returns an empty array when user has no solutions', () => {
+                const myId = 2;
+                return request.get(`/api/solutions/user/${myId}`)
+                .expect(200)
+                .then(({body: solutions}) => {
+                    expect(solutions).to.be.an('array');
+                    expect(solutions.length).to.equal(0);
+                });
+            })
+        });
     });
 });

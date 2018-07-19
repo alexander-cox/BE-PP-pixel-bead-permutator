@@ -426,9 +426,30 @@ describe('API', () => {
                     expect(solutions[0].width_px).to.equal(60);
                     expect(solutions[0].height_px).to.equal(60);
                     expect(solutions[0].favourited).to.equal(3);
-                    expect(solutions[0].created_at).to.not.equal(null)
+                    expect(solutions[0].created_at).to.not.equal(null);
                 });
-            })
+            });
+        });
+        describe('GET /api/solutions/:solution_id', () => {
+            it('returns expected solution', () => {
+                return request.get('/api/solutions/2')
+                .expect(200)
+                .then(({body: solution}) => {
+                    expect(Object.keys(solution).length).to.equal(12);
+                    expect(solution.id).to.equal(2);
+                    expect(solution.title).to.equal('Aubergine Emoji');
+                    expect(solution.users_id).to.equal(1);
+                    expect(solution.image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
+                    expect(solution.votes).to.equal(1);
+                    expect(solution.is_public).to.equal(true);
+                    expect(solution.tags).to.equal('#aubergine#emoji#purple#vegetable');
+                    expect(solution.brand).to.equal('Hama');
+                    expect(solution.width_px).to.equal(60);
+                    expect(solution.height_px).to.equal(60);
+                    expect(solution.favourited).to.equal(0);
+                    expect(solution.created_at).to.not.equal(null);
+                })
+            });
         });
     });
 });

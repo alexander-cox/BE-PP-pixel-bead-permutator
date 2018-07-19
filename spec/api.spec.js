@@ -513,7 +513,7 @@ describe('API', () => {
             it('increments votes by one', () => {
                 let original_votes;
                 const sol_id = 3;
-                return request.get(`/api/solutions/${sol_id}?amount`)
+                return request.get(`/api/solutions/${sol_id}`)
                 .then(({body: solution}) => {
                     original_votes = solution.votes;
                     return request.put(`/api/solutions/${sol_id}/votes`).expect(201)
@@ -522,10 +522,10 @@ describe('API', () => {
                     expect(solution.votes).to.equal(original_votes + 1);
                 })
             });
-            it('decrements votes by expected amount', () => {
+            it('decrements votes by one', () => {
                 let original_votes;
                 const sol_id = 2;
-                return request.get(`/api/solutions/${sol_id}?amount`)
+                return request.get(`/api/solutions/${sol_id}`)
                 .then(({body: solution}) => {
                     original_votes = solution.votes;
                     return request.put(`/api/solutions/${sol_id}/votes?decrement=true`).expect(201)
@@ -537,7 +537,7 @@ describe('API', () => {
             it('does not decrement votes lower than zero', () => {
                 let original_votes;
                 const sol_id = 2;
-                return request.get(`/api/solutions/${sol_id}?amount`)
+                return request.get(`/api/solutions/${sol_id}`)
                 .then(({body: solution}) => {
                     original_votes = solution.votes;
                     return request.put(`/api/solutions/${sol_id}/votes?decrement=true`).expect(201)
@@ -547,5 +547,43 @@ describe('API', () => {
                 })
             });
         });
+        describe('PUT api/solutions/:solution_id/favourited', () => {
+            it('increments favourited by one', () => {
+                let orig_faves;
+                const sol_id = 3;
+                return request.get(`/api/solutions/${sol_id}`)
+                .then(({body: solution}) => {
+                    orig_faves = solution.favourited;
+                    return request.put(`/api/solutions/${sol_id}/favourited`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.favourited).to.equal(orig_faves + 1);
+                })
+            });
+            it('decrements favourited by one', () => {
+                let orig_faves;
+                const sol_id = 3;
+                return request.get(`/api/solutions/${sol_id}`)
+                .then(({body: solution}) => {
+                    orig_faves = solution.favourited;
+                    return request.put(`/api/solutions/${sol_id}/favourited?decrement=true`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.favourited).to.equal(orig_faves - 1);
+                })
+            });
+            it('does not decrement favourited lower than zero', () => {
+                let orig_faves;
+                const sol_id = 2;
+                return request.get(`/api/solutions/${sol_id}`)
+                .then(({body: solution}) => {
+                    orig_faves = solution.favourited;
+                    return request.put(`/api/solutions/${sol_id}/favourited?decrement=true`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.favourited).to.equal(orig_faves);
+                })
+            });
+        })
     });
 });

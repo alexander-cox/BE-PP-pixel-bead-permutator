@@ -35,7 +35,7 @@ module.exports = {
     },
     postSolution(req, res, next) {
         return Model.postSolution(req.body)
-            .then(solution => res.status(200).send(solution))
+            .then(solution => res.status(201).send(solution))
             .catch(next);
     },
     putVoteUpOrDown(req, res, next) {

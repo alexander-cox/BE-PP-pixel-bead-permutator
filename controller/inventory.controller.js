@@ -13,17 +13,16 @@ module.exports = {
             .catch(next);
     },
     putIncOrDecBeadsByInvID(req, res, next) {
-        //use increment=true/false and amount=(int) on query string 
-        const { increment, amount } = req.query;
+        const { decrement, amount } = req.query;
         const { inv_id } = req.params;
-        if (increment === 'true') {
-            return Model.putIncrementInventoryQuantity(inv_id, amount)
-                .then(item => res.status(201).send(item))
-                .catch(next)
-        } else {
+        if (decrement === 'true') {
             return Model.putDecrementInventoryQuantity(inv_id, amount)
                 .then(item => res.status(201).send(item))
-                .catch(next)
+                .catch(next);
+        } else {
+            return Model.putIncrementInventoryQuantity(inv_id, amount)
+                .then(item => res.status(201).send(item))
+                .catch(next);
         }
     },
     postInventoryItemByUserID(req, res, next) {

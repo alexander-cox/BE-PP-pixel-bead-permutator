@@ -310,5 +310,28 @@ describe('API', () => {
                 });
             });
         });
+        describe('GET /api/inventory/:user_id', () => {
+            it('returns an array of inventory items for the specified user', () => {
+                return request.get('/api/inventory/1')
+                .expect(200)
+                .then(({body: items}) => {
+                    expect(items).to.be.an('array');
+                    expect(items.length).to.be.equal(25);
+                    expect(items.every(item => item.quantity >= 0)).to.equal(true);
+                    expect(items.every(item => item.users_id === 1)).to.equal(true);
+                    expect(Object.keys(items[15]).length).to.equal(14)
+                    expect(items[15].quantity).to.equal(28);
+                    expect(items[15].colour_name).to.equal('Khaki');
+                    expect(items[15].bead_id).to.equal(20);
+                    expect(items[15].r).to.equal(54);
+                    expect(items[15].b).to.equal(56);
+                    expect(items[15].g).to.equal(63);
+                    expect(items[15].hex).to.equal('363F38');
+                    expect(items[15].size).to.equal('Medium');
+                    expect(items[15].brand).to.equal('Hama');
+                    expect(items[15].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                })
+            })
+        })
     });
 });

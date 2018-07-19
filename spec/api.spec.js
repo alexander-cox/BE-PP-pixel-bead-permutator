@@ -410,77 +410,142 @@ describe('API', () => {
         describe('GET /api/solutions', () => {
             it('returns expected array of solutions', () => {
                 return request.get('/api/solutions')
-                .expect(200)
-                .then(({body: solutions}) => {
-                    expect(solutions).to.be.an('array');
-                    expect(solutions.length).to.equal(3);
-                    expect(Object.keys(solutions[0]).length).to.equal(12);
-                    expect(solutions[0].id).to.equal(1);
-                    expect(solutions[0].title).to.equal('Snorlax');
-                    expect(solutions[0].users_id).to.equal(1);
-                    expect(solutions[0].image_url).to.equal('https://pokemonrevolution.net/img/feature/snorlax.png');
-                    expect(solutions[0].votes).to.equal(2);
-                    expect(solutions[0].is_public).to.equal(true);
-                    expect(solutions[0].tags).to.equal('#snorlax#pokemon#sleepy');
-                    expect(solutions[0].brand).to.equal('Hama');
-                    expect(solutions[0].width_px).to.equal(60);
-                    expect(solutions[0].height_px).to.equal(60);
-                    expect(solutions[0].favourited).to.equal(3);
-                    expect(solutions[0].created_at).to.not.equal(null);
-                });
+                    .expect(200)
+                    .then(({ body: solutions }) => {
+                        expect(solutions).to.be.an('array');
+                        expect(solutions.length).to.equal(3);
+                        expect(Object.keys(solutions[0]).length).to.equal(12);
+                        expect(solutions[0].id).to.equal(1);
+                        expect(solutions[0].title).to.equal('Snorlax');
+                        expect(solutions[0].users_id).to.equal(1);
+                        expect(solutions[0].image_url).to.equal('https://pokemonrevolution.net/img/feature/snorlax.png');
+                        expect(solutions[0].votes).to.equal(2);
+                        expect(solutions[0].is_public).to.equal(true);
+                        expect(solutions[0].tags).to.equal('#snorlax#pokemon#sleepy');
+                        expect(solutions[0].brand).to.equal('Hama');
+                        expect(solutions[0].width_px).to.equal(60);
+                        expect(solutions[0].height_px).to.equal(60);
+                        expect(solutions[0].favourited).to.equal(3);
+                        expect(solutions[0].created_at).to.not.equal(null);
+                    });
             });
         });
         describe('GET /api/solutions/:solution_id', () => {
             it('returns expected solution', () => {
                 return request.get('/api/solutions/2')
-                .expect(200)
-                .then(({body: solution}) => {
-                    expect(Object.keys(solution).length).to.equal(12);
-                    expect(solution.id).to.equal(2);
-                    expect(solution.title).to.equal('Aubergine Emoji');
-                    expect(solution.users_id).to.equal(1);
-                    expect(solution.image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
-                    expect(solution.votes).to.equal(1);
-                    expect(solution.is_public).to.equal(true);
-                    expect(solution.tags).to.equal('#aubergine#emoji#purple#vegetable');
-                    expect(solution.brand).to.equal('Hama');
-                    expect(solution.width_px).to.equal(60);
-                    expect(solution.height_px).to.equal(60);
-                    expect(solution.favourited).to.equal(0);
-                    expect(solution.created_at).to.not.equal(null);
-                })
+                    .expect(200)
+                    .then(({ body: solution }) => {
+                        expect(Object.keys(solution).length).to.equal(12);
+                        expect(solution.id).to.equal(2);
+                        expect(solution.title).to.equal('Aubergine Emoji');
+                        expect(solution.users_id).to.equal(1);
+                        expect(solution.image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
+                        expect(solution.votes).to.equal(1);
+                        expect(solution.is_public).to.equal(true);
+                        expect(solution.tags).to.equal('#aubergine#emoji#purple#vegetable');
+                        expect(solution.brand).to.equal('Hama');
+                        expect(solution.width_px).to.equal(60);
+                        expect(solution.height_px).to.equal(60);
+                        expect(solution.favourited).to.equal(0);
+                        expect(solution.created_at).to.not.equal(null);
+                    })
             });
         });
         describe('GET /api/solutions/user/:user_id', () => {
             it('returns the solutions that belong to requested user', () => {
                 const myId = 1;
                 return request.get(`/api/solutions/user/${myId}`)
-                .expect(200)
-                .then(({body: solutions}) => {
-                    expect(solutions.every(s => s.users_id === myId)).to.equal(true);
-                    expect(Object.keys(solutions[2]).length).to.equal(12);
-                    expect(solutions[1].id).to.equal(2);
-                    expect(solutions[1].title).to.equal('Aubergine Emoji');
-                    expect(solutions[1].image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
-                    expect(solutions[1].votes).to.equal(1);
-                    expect(solutions[1].is_public).to.equal(true);
-                    expect(solutions[1].tags).to.equal('#aubergine#emoji#purple#vegetable');
-                    expect(solutions[1].brand).to.equal('Hama');
-                    expect(solutions[1].width_px).to.equal(60);
-                    expect(solutions[1].height_px).to.equal(60);
-                    expect(solutions[1].favourited).to.equal(0);
-                    expect(solutions[1].created_at).to.not.equal(null);
-                });
+                    .expect(200)
+                    .then(({ body: solutions }) => {
+                        expect(solutions.every(s => s.users_id === myId)).to.equal(true);
+                        expect(Object.keys(solutions[2]).length).to.equal(12);
+                        expect(solutions[1].id).to.equal(2);
+                        expect(solutions[1].title).to.equal('Aubergine Emoji');
+                        expect(solutions[1].image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
+                        expect(solutions[1].votes).to.equal(1);
+                        expect(solutions[1].is_public).to.equal(true);
+                        expect(solutions[1].tags).to.equal('#aubergine#emoji#purple#vegetable');
+                        expect(solutions[1].brand).to.equal('Hama');
+                        expect(solutions[1].width_px).to.equal(60);
+                        expect(solutions[1].height_px).to.equal(60);
+                        expect(solutions[1].favourited).to.equal(0);
+                        expect(solutions[1].created_at).to.not.equal(null);
+                    });
             });
             it('returns an empty array when user has no solutions', () => {
                 const myId = 2;
                 return request.get(`/api/solutions/user/${myId}`)
-                .expect(200)
-                .then(({body: solutions}) => {
-                    expect(solutions).to.be.an('array');
-                    expect(solutions.length).to.equal(0);
-                });
-            })
+                    .expect(200)
+                    .then(({ body: solutions }) => {
+                        expect(solutions).to.be.an('array');
+                        expect(solutions.length).to.equal(0);
+                    });
+            });
+        });
+        describe('POST /api/solutions/', () => {
+            const solution_obj = {
+                title: "Bob the Minion",
+                users_id: 2,
+                image_url: "https://i.pinimg.com/564x/0c/9c/a0/0c9ca06c106749d7ad564b95ba525ad6.jpg",
+                is_public: true,
+                tags: "#minions#bob#yellow#cartoon",
+                brand: "Hama",
+                width_px: 60,
+                height_px: 60
+            }
+            it('returns the solution object back to confirm posting', () => {
+                return request.post('/api/solutions')
+                    .send(solution_obj)
+                    .expect(201)
+                    .then(({ body: solution }) => {
+                        expect(solution.id).to.not.equal(null)
+                        expect(solution.title).to.equal(solution_obj.title);
+                        expect(solution.users_id).to.equal(solution_obj.users_id);
+                        expect(solution.image_url).to.equal(solution_obj.image_url);
+                        expect(solution.is_public).to.equal(solution_obj.is_public);
+                        expect(solution.brand).to.equal(solution_obj.brand);
+                        expect(solution.width_px).to.equal(solution_obj.width_px);
+                        expect(solution.height_px).to.equal(solution_obj.height_px);
+                    });
+            }); 
+        });
+        describe('PUT /api/solutions/:solution_id/votes', () => {
+            it('increments votes by one', () => {
+                let original_votes;
+                const sol_id = 3;
+                return request.get(`/api/solutions/${sol_id}?amount`)
+                .then(({body: solution}) => {
+                    original_votes = solution.votes;
+                    return request.put(`/api/solutions/${sol_id}/votes`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.votes).to.equal(original_votes + 1);
+                })
+            });
+            it('decrements votes by expected amount', () => {
+                let original_votes;
+                const sol_id = 2;
+                return request.get(`/api/solutions/${sol_id}?amount`)
+                .then(({body: solution}) => {
+                    original_votes = solution.votes;
+                    return request.put(`/api/solutions/${sol_id}/votes?decrement=true`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.votes).to.equal(original_votes - 1);
+                })
+            });
+            it('does not decrement votes lower than zero', () => {
+                let original_votes;
+                const sol_id = 2;
+                return request.get(`/api/solutions/${sol_id}?amount`)
+                .then(({body: solution}) => {
+                    original_votes = solution.votes;
+                    return request.put(`/api/solutions/${sol_id}/votes?decrement=true`).expect(201)
+                })
+                .then(({body: solution}) => {
+                    expect(solution.votes).to.equal(original_votes);
+                })
+            });
         });
     });
 });

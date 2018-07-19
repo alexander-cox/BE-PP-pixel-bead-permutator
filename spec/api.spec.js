@@ -314,7 +314,7 @@ describe('API', () => {
                         expect(pixels[1][1].bead_id).to.equal(19);
                     })
             })
-        })
+        });
     });
     describe('ROUTE /api/inventory', () => {
         describe('GET /api/inventory/', () => {
@@ -404,6 +404,31 @@ describe('API', () => {
                         expect(item.quantity).to.equal(inv_object.quantity);
                     });
             });
+        });
+    });
+    describe('ROUTE /api/solutions', () => {
+        describe('GET /api/solutions', () => {
+            it('returns expected array of solutions', () => {
+                return request.get('/api/solutions')
+                .expect(200)
+                .then(({body: solutions}) => {
+                    expect(solutions).to.be.an('array');
+                    expect(solutions.length).to.equal(3);
+                    expect(Object.keys(solutions[0]).length).to.equal(12);
+                    expect(solutions[0].id).to.equal(1);
+                    expect(solutions[0].title).to.equal('Snorlax');
+                    expect(solutions[0].users_id).to.equal(1);
+                    expect(solutions[0].image_url).to.equal('https://pokemonrevolution.net/img/feature/snorlax.png');
+                    expect(solutions[0].votes).to.equal(2);
+                    expect(solutions[0].is_public).to.equal(true);
+                    expect(solutions[0].tags).to.equal('#snorlax#pokemon#sleepy');
+                    expect(solutions[0].brand).to.equal('Hama');
+                    expect(solutions[0].width_px).to.equal(60);
+                    expect(solutions[0].height_px).to.equal(60);
+                    expect(solutions[0].favourited).to.equal(3);
+                    expect(solutions[0].created_at).to.not.equal(null)
+                });
+            })
         });
     });
 });

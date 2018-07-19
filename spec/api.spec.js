@@ -89,16 +89,16 @@ describe('API', () => {
             }
             it('returns back the same user object witht the expected properties', () => {
                 return request.post('/api/users').send(newUserObj)
-                .expect(201)
-                .then(({body: user}) => {
-                    expect(user).to.be.an('object');
-                    expect(user.id).to.equal(3);
-                    expect(user.username).to.equal(newUserObj.username);
-                    expect(user.first_name).to.equal(newUserObj.first_name);
-                    expect(user.last_name).to.equal(newUserObj.last_name);
-                    expect(user.email).to.equal(newUserObj.email);
-                    expect(user.avatar_url).to.equal(newUserObj.avatar_url);
-                });
+                    .expect(201)
+                    .then(({ body: user }) => {
+                        expect(user).to.be.an('object');
+                        expect(user.id).to.equal(3);
+                        expect(user.username).to.equal(newUserObj.username);
+                        expect(user.first_name).to.equal(newUserObj.first_name);
+                        expect(user.last_name).to.equal(newUserObj.last_name);
+                        expect(user.email).to.equal(newUserObj.email);
+                        expect(user.avatar_url).to.equal(newUserObj.avatar_url);
+                    });
             });
         });
     });
@@ -106,39 +106,39 @@ describe('API', () => {
         describe('GET /api/beads', () => {
             it('returns expected array of beads', () => {
                 return request.get('/api/beads')
-                .expect(200)
-                .then(({body: beads}) => {
-                    expect(beads.length).to.equal(36);
-                    expect(beads[0].id).to.equal(1);
-                    expect(beads[0].colour_name).to.equal('White');
-                    expect(beads[0].r).to.equal(236);
-                    expect(beads[0].g).to.equal(237);
-                    expect(beads[0].b).to.equal(237);
-                    expect(beads[0].hex).to.equal('ECEDED');
-                    expect(beads[0].style).to.equal('Standard');
-                    expect(beads[0].transparent).to.equal(false);
-                    expect(beads[0].size).to.equal('Medium');
-                    expect(beads[0].brand).to.equal('Hama');
-                    expect(beads[0].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
-                    expect(beads[35].id).to.equal(36);
-                    expect(beads[35].colour_name).to.equal('Brown');
-                    expect(beads[35].r).to.equal(190);
-                    expect(beads[35].g).to.equal(130);
-                    expect(beads[35].b).to.equal(100);
-                    expect(beads[35].hex).to.equal('BE8264');
-                    expect(beads[35].style).to.equal('Standard');
-                    expect(beads[35].transparent).to.equal(false);
-                    expect(beads[35].size).to.equal('Medium');
-                    expect(beads[35].brand).to.equal('Hama');
-                    expect(beads[35].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
-                });
+                    .expect(200)
+                    .then(({ body: beads }) => {
+                        expect(beads.length).to.equal(36);
+                        expect(beads[0].id).to.equal(1);
+                        expect(beads[0].colour_name).to.equal('White');
+                        expect(beads[0].r).to.equal(236);
+                        expect(beads[0].g).to.equal(237);
+                        expect(beads[0].b).to.equal(237);
+                        expect(beads[0].hex).to.equal('ECEDED');
+                        expect(beads[0].style).to.equal('Standard');
+                        expect(beads[0].transparent).to.equal(false);
+                        expect(beads[0].size).to.equal('Medium');
+                        expect(beads[0].brand).to.equal('Hama');
+                        expect(beads[0].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                        expect(beads[35].id).to.equal(36);
+                        expect(beads[35].colour_name).to.equal('Brown');
+                        expect(beads[35].r).to.equal(190);
+                        expect(beads[35].g).to.equal(130);
+                        expect(beads[35].b).to.equal(100);
+                        expect(beads[35].hex).to.equal('BE8264');
+                        expect(beads[35].style).to.equal('Standard');
+                        expect(beads[35].transparent).to.equal(false);
+                        expect(beads[35].size).to.equal('Medium');
+                        expect(beads[35].brand).to.equal('Hama');
+                        expect(beads[35].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                    });
             });
         });
         describe('GET /api/beads/:solution_id', () => {
             it('retrieves all beads for a specific solution', () => {
                 return request.get('/api/beads/1')
                     .expect(200)
-                    .then(({body: beads}) => {
+                    .then(({ body: beads }) => {
                         expect(beads.length).to.equal(3600);
                         expect(beads.every(b => b.solution_id === 1)).to.equal(true);
                         expect(beads[0].id).to.equal(1);
@@ -169,97 +169,121 @@ describe('API', () => {
             });
         });
         describe('POST /api/beads/:solution_id', () => {
-            const testSolution = [ { x: 1,
-    y: 1,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 2,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 3,
-    bead_id: 33,
-    colour_name: 'Light Grey',
-    r: 233,
-    g: 233,
-    b: 233 },
-  { x: 1,
-    y: 4,
-    bead_id: 33,
-    colour_name: 'Light Grey',
-    r: 233,
-    g: 233,
-    b: 233 },
-  { x: 1,
-    y: 5,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 6,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 7,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 8,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 9,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 10,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 11,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 },
-  { x: 1,
-    y: 12,
-    bead_id: 1,
-    colour_name: 'White',
-    r: 236,
-    g: 237,
-    b: 237 } ]
+            const testSolution = [{
+                x: 1,
+                y: 1,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 2,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 3,
+                bead_id: 33,
+                colour_name: 'Light Grey',
+                r: 233,
+                g: 233,
+                b: 233
+            },
+            {
+                x: 1,
+                y: 4,
+                bead_id: 33,
+                colour_name: 'Light Grey',
+                r: 233,
+                g: 233,
+                b: 233
+            },
+            {
+                x: 1,
+                y: 5,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 6,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 7,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 8,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 9,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 10,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 11,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            },
+            {
+                x: 1,
+                y: 12,
+                bead_id: 1,
+                colour_name: 'White',
+                r: 236,
+                g: 237,
+                b: 237
+            }]
             it('should return a 201 status and a report to confirm correct no insertions', () => {
                 return request.post('/api/beads/3').send(testSolution)
-                .expect(201)
-                .then(({body: report}) => {
-                    expect(report.insert_count).to.equal(12)
-                    expect(report.solution_id).to.equal('3')
-                });
+                    .expect(201)
+                    .then(({ body: report }) => {
+                        expect(report.insert_count).to.equal(12)
+                        expect(report.solution_id).to.equal('3')
+                    });
             });
         });
         describe('GET /api/beads/temp', () => {
@@ -268,27 +292,27 @@ describe('API', () => {
             const height = 2;
             it('returns an array of arrays to represent x,y coords on an image', () => {
                 return request.get(`/api/beads/temp?width=${width}&height=${height}&url=${url}`)
-                .expect(200)
-                .then(({body: pixels}) => {
-                    expect(pixels).to.be.an('array');
-                    expect(pixels.length).to.equal(2);
-                    expect(pixels[0].length).to.equal(2);
-                    expect(pixels[1].length).to.equal(2);
-                    expect(pixels[0][1].colour_name).to.equal('Beige');
-                    expect(pixels[0][1].r).to.equal(222);
-                    expect(pixels[0][1].g).to.equal(180);
-                    expect(pixels[0][1].b).to.equal(139);
-                    expect(pixels[0][1].x).to.equal(1);
-                    expect(pixels[0][1].y).to.equal(2);
-                    expect(pixels[0][1].bead_id).to.equal(19);
-                    expect(pixels[1][1].colour_name).to.equal('Beige');
-                    expect(pixels[1][1].r).to.equal(222);
-                    expect(pixels[1][1].g).to.equal(180);
-                    expect(pixels[1][1].b).to.equal(139);
-                    expect(pixels[1][1].x).to.equal(2);
-                    expect(pixels[1][1].y).to.equal(2);
-                    expect(pixels[1][1].bead_id).to.equal(19);
-                })
+                    .expect(200)
+                    .then(({ body: pixels }) => {
+                        expect(pixels).to.be.an('array');
+                        expect(pixels.length).to.equal(2);
+                        expect(pixels[0].length).to.equal(2);
+                        expect(pixels[1].length).to.equal(2);
+                        expect(pixels[0][1].colour_name).to.equal('Beige');
+                        expect(pixels[0][1].r).to.equal(222);
+                        expect(pixels[0][1].g).to.equal(180);
+                        expect(pixels[0][1].b).to.equal(139);
+                        expect(pixels[0][1].x).to.equal(1);
+                        expect(pixels[0][1].y).to.equal(2);
+                        expect(pixels[0][1].bead_id).to.equal(19);
+                        expect(pixels[1][1].colour_name).to.equal('Beige');
+                        expect(pixels[1][1].r).to.equal(222);
+                        expect(pixels[1][1].g).to.equal(180);
+                        expect(pixels[1][1].b).to.equal(139);
+                        expect(pixels[1][1].x).to.equal(2);
+                        expect(pixels[1][1].y).to.equal(2);
+                        expect(pixels[1][1].bead_id).to.equal(19);
+                    })
             })
         })
     });
@@ -296,41 +320,41 @@ describe('API', () => {
         describe('GET /api/inventory/', () => {
             it('gets all inventory objects as an array', () => {
                 return request.get('/api/inventory/')
-                .expect(200)
-                .then(({body: items}) => {
-                    expect(items.length).to.equal(53);
-                    expect(items).to.be.an('array');
-                    expect(items.every(item => item.quantity >= 0)).to.equal(true);
-                    expect(items.every(item => item.user_id !== null)).to.equal(true);
-                    expect(items.every(item => item.bead_id !== null)).to.equal(true);
-                    expect(items[51].id).to.equal(52);
-                    expect(items[51].users_id).to.equal(1);
-                    expect(items[51].bead_id).to.equal(32);
-                    expect(items[51].quantity).to.equal(47);
-                });
+                    .expect(200)
+                    .then(({ body: items }) => {
+                        expect(items.length).to.equal(53);
+                        expect(items).to.be.an('array');
+                        expect(items.every(item => item.quantity >= 0)).to.equal(true);
+                        expect(items.every(item => item.user_id !== null)).to.equal(true);
+                        expect(items.every(item => item.bead_id !== null)).to.equal(true);
+                        expect(items[51].id).to.equal(52);
+                        expect(items[51].users_id).to.equal(1);
+                        expect(items[51].bead_id).to.equal(32);
+                        expect(items[51].quantity).to.equal(47);
+                    });
             });
         });
         describe('GET /api/inventory/:user_id', () => {
             it('returns an array of inventory items for the specified user', () => {
                 return request.get('/api/inventory/1')
-                .expect(200)
-                .then(({body: items}) => {
-                    expect(items).to.be.an('array');
-                    expect(items.length).to.be.equal(25);
-                    expect(items.every(item => item.quantity >= 0)).to.equal(true);
-                    expect(items.every(item => item.users_id === 1)).to.equal(true);
-                    expect(Object.keys(items[15]).length).to.equal(14)
-                    expect(items[15].quantity).to.equal(28);
-                    expect(items[15].colour_name).to.equal('Khaki');
-                    expect(items[15].bead_id).to.equal(20);
-                    expect(items[15].r).to.equal(54);
-                    expect(items[15].b).to.equal(56);
-                    expect(items[15].g).to.equal(63);
-                    expect(items[15].hex).to.equal('363F38');
-                    expect(items[15].size).to.equal('Medium');
-                    expect(items[15].brand).to.equal('Hama');
-                    expect(items[15].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
-                });
+                    .expect(200)
+                    .then(({ body: items }) => {
+                        expect(items).to.be.an('array');
+                        expect(items.length).to.be.equal(25);
+                        expect(items.every(item => item.quantity >= 0)).to.equal(true);
+                        expect(items.every(item => item.users_id === 1)).to.equal(true);
+                        expect(Object.keys(items[15]).length).to.equal(14)
+                        expect(items[15].quantity).to.equal(28);
+                        expect(items[15].colour_name).to.equal('Khaki');
+                        expect(items[15].bead_id).to.equal(20);
+                        expect(items[15].r).to.equal(54);
+                        expect(items[15].b).to.equal(56);
+                        expect(items[15].g).to.equal(63);
+                        expect(items[15].hex).to.equal('363F38');
+                        expect(items[15].size).to.equal('Medium');
+                        expect(items[15].brand).to.equal('Hama');
+                        expect(items[15].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                    });
             });
         });
         describe('PUT /api/inventory/:inventory_id', () => {
@@ -339,28 +363,46 @@ describe('API', () => {
                 let inv_id;
                 const increment = 6;
                 return request.get('/api/inventory')
-                .then(({body: items}) => {
-                    inv_id = items[1].id;
-                    currQuantity = items[1].quantity;
-                    return request.put(`/api/inventory/${inv_id}?amount=${increment}&decrement=false`).expect(201);
-                })
-                .then(({body: item}) => {
-                    expect(item.quantity).to.equal(currQuantity + increment);
-                });
+                    .then(({ body: items }) => {
+                        inv_id = items[1].id;
+                        currQuantity = items[1].quantity;
+                        return request.put(`/api/inventory/${inv_id}?amount=${increment}&decrement=false`).expect(201);
+                    })
+                    .then(({ body: item }) => {
+                        expect(item.quantity).to.equal(currQuantity + increment);
+                    });
             });
             it('decrements the bead quantity by requested amount', () => {
                 let currQuantity;
                 let inv_id;
                 const decrement = 8;
                 return request.get('/api/inventory')
-                .then(({body: items}) => {
-                    inv_id = items[0].id;
-                    currQuantity = items[0].quantity;
-                    return request.put(`/api/inventory/${inv_id}?amount=${decrement}&decrement=true`).expect(201);
-                })
-                .then(({body: item}) => {
-                    expect(item.quantity).to.equal(currQuantity - decrement);
-                });
+                    .then(({ body: items }) => {
+                        inv_id = items[0].id;
+                        currQuantity = items[0].quantity;
+                        return request.put(`/api/inventory/${inv_id}?amount=${decrement}&decrement=true`).expect(201);
+                    })
+                    .then(({ body: item }) => {
+                        expect(item.quantity).to.equal(currQuantity - decrement);
+                    });
+            });
+        });
+        describe('POST /api/inventory', () => {
+            it('returns an identical inventory object to the one passed to it', () => {
+                const inv_object = {
+                    users_id: 1,
+                    bead_id: 30,
+                    quantity: 5
+                }
+                return request.post('/api/inventory')
+                    .send(inv_object)
+                    .expect(201)
+                    .then(({ body: item }) => {
+                        expect(item.id).to.equal(54);
+                        expect(item.users_id).to.equal(inv_object.users_id);
+                        expect(item.bead_id).to.equal(inv_object.bead_id);
+                        expect(item.quantity).to.equal(inv_object.quantity);
+                    });
             });
         });
     });

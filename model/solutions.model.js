@@ -21,7 +21,7 @@ module.exports = {
         return db.one('SELECT * FROM solutions WHERE id = $1', solution_id);
     },
     getSolutionsByUserID(users_id) {
-        return db.many('SELECT * FROM solutions WHERE users_id = $1', users_id);
+        return db.any('SELECT * FROM solutions WHERE users_id = $1', users_id);
     },
     postSolution(solutionObj) {
         const { title, users_id, image_url, is_public, tags, brand, width_px, height_px } = solutionObj;

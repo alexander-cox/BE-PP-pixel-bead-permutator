@@ -330,8 +330,38 @@ describe('API', () => {
                     expect(items[15].size).to.equal('Medium');
                     expect(items[15].brand).to.equal('Hama');
                     expect(items[15].source_url).to.equal('https://www.hamabeads.com/shop-midi/midi-beads');
+                });
+            });
+        });
+        describe('PUT /api/inventory/:inventory_id', () => {
+            it('increments the bead quantity by requested amount', () => {
+                let currQuantity;
+                let inv_id;
+                const increment = 6;
+                return request.get('/api/inventory')
+                .then(({body: items}) => {
+                    inv_id = items[1].id;
+                    currQuantity = items[1].quantity;
+                    return request.put(`/api/inventory/${inv_id}?amount=${increment}&decrement=false`).expect(201);
                 })
-            })
-        })
+                .then(({body: item}) => {
+                    expect(item.quantity).to.equal(currQuantity + increment);
+                });
+            });
+            it('decrements the bead quantity by requested amount', () => {
+                let currQuantity;
+                let inv_id;
+                const decrement = 8;
+                return request.get('/api/inventory')
+                .then(({body: items}) => {
+                    inv_id = items[0].id;
+                    currQuantity = items[0].quantity;
+                    return request.put(`/api/inventory/${inv_id}?amount=${decrement}&decrement=true`).expect(201);
+                })
+                .then(({body: item}) => {
+                    expect(item.quantity).to.equal(currQuantity - decrement);
+                });
+            });
+        });
     });
 });

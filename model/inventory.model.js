@@ -5,7 +5,7 @@ module.exports = {
         return db.many('SELECT * FROM inventory');
     },
     getInventoryBeadsByUserID(userID) {
-        return db.many('SELECT * FROM inventory AS i LEFT JOIN beads AS b ON i.bead_id=b.id WHERE i.users_id=$1;', [userID]);
+        return db.many('SELECT i.id AS id, i.bead_id, b.brand, b.colour_name, b.hex, b.size, b.source_url, style, b.r, b.g, b.b, b.transparent, i.users_id, quantity FROM inventory AS i JOIN beads AS b ON i.bead_id=b.id WHERE i.users_id=$1;', [userID]);
     },
     putIncrementInventoryQuantity(inv_id, quantity) {
         return db.one('UPDATE inventory SET quantity = quantity + $1 WHERE id=$2 RETURNING *;', [quantity, inv_id]);

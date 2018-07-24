@@ -120,9 +120,9 @@ VALUES  ( 'White', 236, 237, 237,'ECEDED', 'Standard', FALSE, 'Medium', 'Hama', 
 INSERT INTO solutions
     ( users_id, title, image_URL, votes, tags, brand, width_px, height_px, favourited)
 VALUES
-    ( 1, 'Snorlax', 'https://pokemonrevolution.net/img/feature/snorlax.png', 2, '#snorlax#pokemon#sleepy', 'Hama', 60, 60, 3),
-    ( 1, 'Aubergine Emoji', 'http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png', 1, '#aubergine#emoji#purple#vegetable', 'Hama', 60, 60, 0 ),
-    ( 1, 'Pika Boo', 'https://sm.ign.com/ign_in/news/p/pokemon-da/pokemon-day-2018-celebrations-include-snapchat-lenses-new-pi_6kqw.jpg',0, '#pikachu#pokemon#pikaboo', 'Hama', 120, 70, 1);
+    ( 1, 'Snorlax', 'https://pokemonrevolution.net/img/feature/snorlax.png', 2, 'snorlax pokemon sleepy', 'Hama', 60, 60, 3),
+    ( 1, 'Aubergine Emoji', 'http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png', 1, 'aubergine emoji purple vegetable', 'Hama', 60, 60, 0 ),
+    ( 1, 'Pika Boo', 'https://sm.ign.com/ign_in/news/p/pokemon-da/pokemon-day-2018-celebrations-include-snapchat-lenses-new-pi_6kqw.jpg',0, 'pikachu pokemon pikaboo', 'Hama', 120, 70, 1);
 
 INSERT INTO solution_beads
     ( solution_id, bead_id, x, y )

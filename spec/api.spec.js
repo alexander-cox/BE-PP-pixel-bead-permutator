@@ -71,7 +71,7 @@ describe('API', () => {
                         expect(favourite[0].title).to.equal('Snorlax');
                         expect(favourite[0].image_url).to.equal('https://pokemonrevolution.net/img/feature/snorlax.png');
                         expect(favourite[0].votes).to.equal(2);
-                        expect(favourite[0].tags).to.equal('#snorlax#pokemon#sleepy');
+                        expect(favourite[0].tags).to.equal('snorlax pokemon sleepy');
                         expect(favourite[0].brand).to.equal('Hama');
                         expect(favourite[0].width_px).to.equal(60);
                         expect(favourite[0].height_px).to.equal(60);
@@ -421,7 +421,7 @@ describe('API', () => {
                         expect(solutions[0].image_url).to.equal('https://pokemonrevolution.net/img/feature/snorlax.png');
                         expect(solutions[0].votes).to.equal(2);
                         expect(solutions[0].is_public).to.equal(true);
-                        expect(solutions[0].tags).to.equal('#snorlax#pokemon#sleepy');
+                        expect(solutions[0].tags).to.equal('snorlax pokemon sleepy');
                         expect(solutions[0].brand).to.equal('Hama');
                         expect(solutions[0].width_px).to.equal(60);
                         expect(solutions[0].height_px).to.equal(60);
@@ -435,14 +435,14 @@ describe('API', () => {
                 return request.get('/api/solutions/2')
                     .expect(200)
                     .then(({ body: solution }) => {
-                        expect(Object.keys(solution).length).to.equal(12);
+                        expect(Object.keys(solution).length).to.equal(14);
                         expect(solution.id).to.equal(2);
                         expect(solution.title).to.equal('Aubergine Emoji');
                         expect(solution.users_id).to.equal(1);
                         expect(solution.image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
                         expect(solution.votes).to.equal(1);
                         expect(solution.is_public).to.equal(true);
-                        expect(solution.tags).to.equal('#aubergine#emoji#purple#vegetable');
+                        expect(solution.tags).to.equal('aubergine emoji purple vegetable');
                         expect(solution.brand).to.equal('Hama');
                         expect(solution.width_px).to.equal(60);
                         expect(solution.height_px).to.equal(60);
@@ -464,7 +464,7 @@ describe('API', () => {
                         expect(solutions[1].image_url).to.equal('http://www.emoji.co.uk/files/emoji-one/food-drink-emoji-one/1613-aubergine.png');
                         expect(solutions[1].votes).to.equal(1);
                         expect(solutions[1].is_public).to.equal(true);
-                        expect(solutions[1].tags).to.equal('#aubergine#emoji#purple#vegetable');
+                        expect(solutions[1].tags).to.equal('aubergine emoji purple vegetable');
                         expect(solutions[1].brand).to.equal('Hama');
                         expect(solutions[1].width_px).to.equal(60);
                         expect(solutions[1].height_px).to.equal(60);

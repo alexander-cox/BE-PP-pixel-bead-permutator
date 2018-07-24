@@ -14,7 +14,7 @@ module.exports = {
         })
     },
     getSolutionBeadsBySolutionID(solution_id) {
-        return db.many('SELECT sb.id, sb.solution_id, sb.x, sb.y, sb.bead_id , b.colour_name, b.r, b.g, b.b FROM solution_beads AS sb LEFT JOIN beads AS b ON sb.bead_id = b.id WHERE sb.solution_id = $1;',
+        return db.many('SELECT sb.id, sb.solution_id, sb.x, sb.y, sb.bead_id , b.colour_name, b.r, b.g, b.b FROM solution_beads AS sb LEFT JOIN beads AS b ON sb.bead_id = b.id WHERE sb.solution_id = $1 ORDER BY sb.y ASC, sb.x ASC;',
             [solution_id]);
     }
 }

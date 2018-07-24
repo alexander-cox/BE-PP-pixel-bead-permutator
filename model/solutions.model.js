@@ -18,7 +18,7 @@ module.exports = {
         return db.any(`SELECT * FROM solutions WHERE LOWER(title) LIKE '%' || $1 || '%' AND ${QueryCondStr};`, [title.toLowerCase(), ...lowerCaseTags]);
     },
     getSolutionByID(solution_id) {
-        return db.one('SELECT * FROM solutions WHERE id = $1', solution_id);
+        return db.one('SELECT s.id, s.title, s.users_id, s.image_url, s.votes, s.is_public, s.tags, s.brand, s.width_px, s.height_px, s.favourited, s.created_at, u.username, u.avatar_url FROM solutions AS s JOIN users AS u ON s.users_id=u.id WHERE s.id = $1', solution_id);
     },
     getSolutionsByUserID(users_id) {
         return db.any('SELECT * FROM solutions WHERE users_id = $1', users_id);

@@ -295,23 +295,21 @@ describe('API', () => {
                     .expect(200)
                     .then(({ body: pixels }) => {
                         expect(pixels).to.be.an('array');
-                        expect(pixels.length).to.equal(2);
-                        expect(pixels[0].length).to.equal(2);
-                        expect(pixels[1].length).to.equal(2);
-                        expect(pixels[0][1].colour_name).to.equal('Beige');
-                        expect(pixels[0][1].r).to.equal(222);
-                        expect(pixels[0][1].g).to.equal(180);
-                        expect(pixels[0][1].b).to.equal(139);
-                        expect(pixels[0][1].x).to.equal(1);
-                        expect(pixels[0][1].y).to.equal(2);
-                        expect(pixels[0][1].bead_id).to.equal(19);
-                        expect(pixels[1][1].colour_name).to.equal('Beige');
-                        expect(pixels[1][1].r).to.equal(222);
-                        expect(pixels[1][1].g).to.equal(180);
-                        expect(pixels[1][1].b).to.equal(139);
-                        expect(pixels[1][1].x).to.equal(2);
-                        expect(pixels[1][1].y).to.equal(2);
-                        expect(pixels[1][1].bead_id).to.equal(19);
+                        expect(pixels.length).to.equal(4);
+                        expect(pixels[0].colour_name).to.equal('Beige');
+                        expect(pixels[0].r).to.equal(222);
+                        expect(pixels[0].g).to.equal(180);
+                        expect(pixels[0].b).to.equal(139);
+                        expect(pixels[0].x).to.equal(1);
+                        expect(pixels[0].y).to.equal(1);
+                        expect(pixels[0].bead_id).to.equal(19);
+                        expect(pixels[1].colour_name).to.equal('Beige');
+                        expect(pixels[1].r).to.equal(222);
+                        expect(pixels[1].g).to.equal(180);
+                        expect(pixels[1].b).to.equal(139);
+                        expect(pixels[1].x).to.equal(2);
+                        expect(pixels[1].y).to.equal(1);
+                        expect(pixels[1].bead_id).to.equal(19);
                     })
             })
         });

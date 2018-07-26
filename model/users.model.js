@@ -1,4 +1,4 @@
-const db = require(`../config/db.config.js`);
+const db =  process.env.DATABASE_URL || require(`../config/db.config.js`);
 
 module.exports = {
     getAllUsers() {

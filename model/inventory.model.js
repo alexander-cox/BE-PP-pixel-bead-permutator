@@ -1,4 +1,4 @@
-const db = require('../config/db.config');
+const db =  process.env.DATABASE_URL || require('../config/db.config');
 
 module.exports = {
     getAllInventoryItems() {

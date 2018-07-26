@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS pixel_bead_permutator;
-CREATE DATABASE pixel_bead_permutator;
+DROP DATABASE IF EXISTS dcbrjvejla4pdc;
+CREATE DATABASE dcbrjvejla4pdc;
 
-\c pixel_bead_permutator;
+\c dcbrjvejla4pdc;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,

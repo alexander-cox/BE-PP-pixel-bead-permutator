@@ -52,6 +52,21 @@ describe('API', () => {
                     });
             });
         });
+        describe('GET /api/users/id/:user_id', () => {
+            it('returns a user object with correct user properties', () => {
+                return request.get('/api/users/id/1')
+                    .expect(200)
+                    .then(({ body: user }) => {
+                        expect(user).to.be.an('object');
+                        expect(user.id).to.equal(1);
+                        expect(user.username).to.equal('cockles');
+                        expect(user.first_name).to.equal('Alex');
+                        expect(user.last_name).to.equal('Cox');
+                        expect(user.email).to.equal('alexander.cox@myemail.com');
+                        expect(user.avatar_url).to.equal('https://pbs.twimg.com/profile_images/691705411939012609/YHZlX_97_400x400.jpg');
+                    });
+            });
+        });
         describe('GET /api/users/:user_id/favourites', () => {
             it('returns an array of favourite objects with the correct length', () => {
                 return request.get('/api/users/1/favourites')

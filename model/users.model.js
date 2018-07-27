@@ -7,6 +7,9 @@ module.exports = {
     getUserByUsername(username) {
         return db.one('SELECT * FROM users WHERE username = $1', [username]);
     },
+    getUserByUserId(userID) {
+        return db.one('SELECT * FROM users WHERE id = $1', [userID]);
+    },
     getFavouritesByUserID(userID) {
         return db.many(`SELECT * FROM favourites AS f JOIN solutions as s ON f.solution_id=s.id WHERE f.users_id = ${userID};`);
     },

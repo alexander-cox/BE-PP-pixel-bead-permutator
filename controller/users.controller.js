@@ -6,6 +6,12 @@ module.exports = {
         .then(users => res.status(200).send(users))
         .catch(next);
     },
+    getUserByUserId(req, res, next) {
+        const { user_id } = req.params;
+        Model.getUserByUserId(user_id)
+        .then(user => res.status(200).send(user))
+        .catch(next); 
+    },
     getUserByUsername(req, res, next) {
         const { username } = req.params;
         Model.getUserByUsername(username)
